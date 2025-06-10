@@ -213,10 +213,28 @@
 				
 
 </div>
-<iframe src="https://www.nhaccuatui.com/lh/background/aGbHfJT63EYW" width="1" height="1" frameborder="0" allowfullscreen allow="autoplay"></iframe><!--  Thay đổi nhạc tại đây-->
-<style>
+<audio id="playAudio" autoplay loop muted style="display: none;">
+  <source src="LamNguoiYeuAnhNheBaby.mp3" type="audio/mpeg">
+  Trình duyệt không hỗ trợ audio.
+</audio>
 
-</style>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const audio = document.getElementById('playAudio');
+
+  // Cho phép phát nhạc sau khi trang đã load
+  audio.muted = false;
+
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      console.log('Nhạc đã phát thành công');
+    }).catch((error) => {
+      console.warn('Trình duyệt đã chặn autoplay do chưa có tương tác người dùng');
+    });
+  }
+});
+</script>
 </body>
 
 </html>
