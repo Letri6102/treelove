@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,7 +23,7 @@
                 <div id="text">
 			        <div id="code">
 									<!-- (1) CHỈNH SỬA LỜI CỦA BẠN TẠI ĐÂY-->
-			      <font color="#3500ff"><span class="say">Xin chào Thư!, người con gái anh yêu!</span><br>
+			      <font color="#3500ff"><span class="say">Hello Thư, người con gái anh yêu!</span><br>
 						<span class="say">Em còn nhớ lần đầu tiên chúng ta gặp nhau là ở đâu không?</span><br>
                         <span class="say">Anh thì nhớ như in... là ở sân cầu lông hôm ấy.</span><br>
                         <span class="say"> </span><br>
@@ -108,14 +108,22 @@
 
         canvas.click(function(e) {
             var offset = canvas.offset(), x, y;
-            x = e.pageX - offset.left;
-            y = e.pageY - offset.top;
-            if (seed.hover(x, y)) {
-                hold = 0; 
-                canvas.unbind("click");
-                canvas.unbind("mousemove");
-                canvas.removeClass('hand');
-            }
+    x = e.pageX - offset.left;
+    y = e.pageY - offset.top;
+    if (seed.hover(x, y)) {
+        hold = 0;
+        canvas.unbind("click");
+        canvas.unbind("mousemove");
+        canvas.removeClass('hand');
+
+        // PHÁT NHẠC KHI CLICK TRÁI TIM
+        const audio = document.getElementById('playAudio');
+        audio.play().then(() => {
+            console.log("🎵 Nhạc đã phát khi nhấn vào trái tim");
+        }).catch((err) => {
+            console.warn("🚫 Không thể phát nhạc:", err);
+        });
+    }
         }).mousemove(function(e){
             var offset = canvas.offset(), x, y;
             x = e.pageX - offset.left;
@@ -210,31 +218,12 @@
     })();
     </script>
 <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
-				
-
 </div>
-<audio id="playAudio" autoplay loop muted style="display: none;">
+			
+<audio id="playAudio" loop style="display: none;">
   <source src="LamNguoiYeuAnhNheBaby.mp3" type="audio/mpeg">
-  Trình duyệt không hỗ trợ audio.
 </audio>
 
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-  const audio = document.getElementById('playAudio');
-
-  // Cho phép phát nhạc sau khi trang đã load
-  audio.muted = false;
-
-  const playPromise = audio.play();
-  if (playPromise !== undefined) {
-    playPromise.then(() => {
-      console.log('Nhạc đã phát thành công');
-    }).catch((error) => {
-      console.warn('Trình duyệt đã chặn autoplay do chưa có tương tác người dùng');
-    });
-  }
-});
-</script>
 </body>
 
 </html>
